@@ -1,0 +1,45 @@
+name: Hydra Sync Protocol 🐍 (Native)
+
+on:
+  push:
+    branches: [ main ]
+    # Runs automatically whenever you update the Main account
+
+jobs:
+  distribute_traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # =========================================================
+      # 1️⃣ MIRROR 1 (Example: DevCache99)
+      # =========================================================
+      - name: Sync to Mirror 1 (DevCache99)
+        run: |
+          # ⬇️ REPLACE 'DevCache99' WITH YOUR ACTUAL BACKUP USERNAME ⬇️
+          git remote add mirror1 https://DevCache99:${{ secrets.PAT_MIRROR_1 }}@github.com/DevCache99/anime-index.git
+          git push mirror1 main --force
+          git remote remove mirror1
+
+      # =========================================================
+      # 2️⃣ MIRROR 2 (Example: ProjectRonin)
+      # =========================================================
+      - name: Sync to Mirror 2 (ProjectRonin)
+        run: |
+          # ⬇️ REPLACE 'ProjectRonin' WITH YOUR ACTUAL BACKUP USERNAME ⬇️
+          git remote add mirror2 https://ProjectRonin:${{ secrets.PAT_MIRROR_2 }}@github.com/ProjectRonin/anime-index.git
+          git push mirror2 main --force
+          git remote remove mirror2
+
+      # =========================================================
+      # 3️⃣ MIRROR 3 (Example: NeonStack)
+      # =========================================================
+      - name: Sync to Mirror 3 (NeonStack)
+        run: |
+          # ⬇️ REPLACE 'NeonStack' WITH YOUR ACTUAL BACKUP USERNAME ⬇️
+          git remote add mirror3 https://NeonStack:${{ secrets.PAT_MIRROR_3 }}@github.com/NeonStack/anime-index.git
+          git push mirror3 main --force
+          git remote remove mirror3
+          
